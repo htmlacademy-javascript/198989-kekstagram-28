@@ -31,7 +31,7 @@ console.log(isPalynodrome('топот')); // true
 // Несмотря на разный регистр, тоже палиндром
 console.log(isPalynodrome('ДовОд')); // true
 // Это не палиндром
-console.log(isPalynodrome('Кекс'));  // false
+console.log(isPalynodrome('Кекс')); // false
 // Это палиндром
 console.log(isPalynodrome('Лёша на полке клопа нашёл ')); // true
 
@@ -59,14 +59,14 @@ const getNumbers = (testString) => {
   return (string === '') ? NaN : parseInt(string, 10);
 };
 
-console.log(getNumbers('2023 год'));            // 2023
-console.log(getNumbers('ECMAScript 2022'));     // 2022
+console.log(getNumbers('2023 год')); // 2023
+console.log(getNumbers('ECMAScript 2022')); // 2022
 console.log(getNumbers('1 кефир, 0.5 батона')); // 105
-console.log(getNumbers('агент 007'));           // 7
-console.log(getNumbers('а я томат'));           // NaN
-console.log(getNumbers(2023));                  // 2023
-console.log(getNumbers(-1));                    // 1
-console.log(getNumbers(1.5));                   // 15
+console.log(getNumbers('агент 007')); // 7
+console.log(getNumbers('а я томат')); // NaN
+console.log(getNumbers(2023)); // 2023
+console.log(getNumbers(-1)); // 1
+console.log(getNumbers(1.5)); // 15
 
 console.log('Задача 4');
 /* Функция, которая принимает три параметра: исходную строку, минимальную длину и строку с добавочными символами —
@@ -74,18 +74,20 @@ console.log('Задача 4');
 Символы добавляются в начало строки. Если исходная строка превышает заданную длину, она не должна обрезаться.
 Если «добивка» слишком длинная, она обрезается с конца. */
 
-const getString = (testString, minLength, addlString) => {
-  const actualString = minLength - testString.length;
-  return (actualString <= 0) ? testString : addlString.slice(0, actualString % addlString.length) + addlString.repeat(actualString / addlString.length) + testString;
+const getString = (testString, minLength, extraString) => {
+  const extraLength = minLength - testString.length;
+  return (extraLength <= 0) ? testString
+    : extraString.slice(0, extraLength % extraString.length)
+    + extraString.repeat(extraLength / extraString.length) + testString;
 };
 
 // Добавочный символ использован один раз
-console.log(getString('1', 2, '0'));      // '01'
+console.log(getString('1', 2, '0')); // '01'
 // Добавочный символ использован три раза
-console.log(getString('1', 4, '0'));      // '0001'
+console.log(getString('1', 4, '0')); // '0001'
 // Добавочные символы обрезаны с конца
-console.log(getString('q', 4, 'werty'));  // 'werq'
+console.log(getString('q', 4, 'werty')); // 'werq'
 // Добавочные символы использованы полтора раза
-console.log(getString('q', 4, 'we'));     // 'wweq'
+console.log(getString('q', 4, 'we')); // 'wweq'
 // Добавочные символы не использованы, исходная строка не изменена
 console.log(getString('qwerty', 4, '0')); // 'qwerty'
