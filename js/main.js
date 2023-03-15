@@ -1,1 +1,3 @@
-import './picture.js';
+import {createPicture} from './picture.js';
+
+createPicture();
