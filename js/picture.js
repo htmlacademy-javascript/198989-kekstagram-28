@@ -1,16 +1,12 @@
-import {createPhoto} from './data.js';
-
 const pictureContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 
-const createPicture = () => {
-  const similarPicture = createPhoto();
-
+const createPictures = (pictures) => {
   const pictureContainerFragment = document.createDocumentFragment();
 
-  similarPicture.forEach(({url, description, comments, likes}) => {
+  pictures.forEach(({url, description, comments, likes}) => {
     const pictureElement = pictureTemplate.cloneNode(true);
     pictureElement.querySelector('.picture__img').src = url;
     pictureElement.querySelector('.picture__img').alt = description;
@@ -22,4 +18,4 @@ const createPicture = () => {
   pictureContainer.append(pictureContainerFragment);
 };
 
-export {createPicture};
+export {createPictures};
