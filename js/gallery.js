@@ -1,8 +1,8 @@
-const COMMENTS_COUNT = 5;
-
 import {createPictures} from './picture.js';
 import {renderBigPictureData} from './big-picture.js';
 import {isEscapeKey, isEnterKey} from './util.js';
+
+const COMMENTS_COUNT = 5;
 
 const pictureContainer = document.querySelector('.pictures');
 const photoModalElement = document.querySelector('.big-picture');
