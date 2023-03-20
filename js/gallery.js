@@ -52,8 +52,6 @@ const renderComments = () => {
 const openModal = (picture) => {
   photoModalElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  commentsLoader.classList.add('hidden');
-  commentCount.classList.add('hidden');
   document.addEventListener('keydown', onDocumentKeydown);
   renderBigPictureData(picture);
   comments = picture.comments;
