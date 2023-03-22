@@ -1236,6 +1236,14 @@ main {
   border-radius: 10px;
 }
 
+.img-upload__error-text {
+  width: 450px;
+  margin-top: -20px;
+  margin-left: 66px;
+  color: #e90000;
+  background-color: #e0e0e0;
+}
+
 .success__inner {
   padding: 100px 20px;
   padding-bottom: 75px;

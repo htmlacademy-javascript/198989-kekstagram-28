@@ -63,7 +63,7 @@ const openModal = (picture) => {
 
 function closeModal () {
   photoModalElement.classList.add('hidden');
-
+  document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
@@ -86,6 +86,7 @@ const createGallery = (pictures) => {
     if (!pictureElement) {
       return;
     }
+    evt.preventDefault();
     const picture = pictures.find((item) => item.id === +pictureElement.dataset.pictureElementId);
     openModal(picture);
   });
