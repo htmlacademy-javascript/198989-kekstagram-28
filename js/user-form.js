@@ -82,36 +82,6 @@ errors.forEach((value, key) =>
   )
 );
 
-/*pristine.addValidator(
-  hashtagInput,
-  validateFirstSymbol,
-  'Хэш-тег должен начинаться с символа # (решётка)'
-);
-
-pristine.addValidator(
-  hashtagInput,
-  validateLength,
-  'Максимальная длина хэш-тега 20 символов'
-);
-
-pristine.addValidator(
-  hashtagInput,
-  validateSymbols,
-  'Хэш-теги должны состоять из букв и чисел'
-);
-
-pristine.addValidator(
-  hashtagInput,
-  validateUniqueness,
-  'Хэш-теги не должны повторяться'
-);
-
-pristine.addValidator(
-  hashtagInput,
-  validateCount,
-  'Нельзя указать больше пяти хэш-тегов'
-);*/
-
 imgUploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   pristine.validate();
