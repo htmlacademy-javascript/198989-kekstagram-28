@@ -1,4 +1,6 @@
 import {isEscapeKey} from './util.js';
+import {resetScale} from './scale.js';
+import {resetEffects} from './effects.js';
 
 const MAX_HASHTAG_LENGTH = 20;
 const MAX_HASHTAG_COUNT = 5;
@@ -9,6 +11,7 @@ const photoUploadButton = document.querySelector('#upload-file');
 const cancelButton = document.querySelector('.img-upload__cancel');
 const hashtagInput = document.querySelector('.text__hashtags');
 const descriptionInput = document.querySelector('.text__description');
+const inputValue = document.querySelector('.scale__control--value');
 
 const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -19,11 +22,14 @@ const pristine = new Pristine(imgUploadForm, {
 const openModal = () => {
   overlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
+  inputValue.setAttribute('value', '100%');
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const closeModal = () => {
   imgUploadForm.reset();
+  resetScale();
+  resetEffects();
   pristine.reset();
   overlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
