@@ -5,6 +5,11 @@ import {resetEffects} from './effects.js';
 const MAX_HASHTAG_LENGTH = 20;
 const MAX_HASHTAG_COUNT = 5;
 
+const SubmitButtonText = {
+  IDLE: 'Сохранить',
+  SENDING: 'Сохраняю...'
+};
+
 const imgUploadForm = document.querySelector('.img-upload__form');
 const overlay = document.querySelector('.img-upload__overlay');
 const photoUploadButton = document.querySelector('#upload-file');
@@ -12,6 +17,8 @@ const cancelButton = document.querySelector('.img-upload__cancel');
 const hashtagInput = document.querySelector('.text__hashtags');
 const descriptionInput = document.querySelector('.text__description');
 const inputValue = document.querySelector('.scale__control--value');
+const submitButton = imgUploadForm.querySelector('.img-upload__submit');
+//const errorTemplate = document.querySelector('.error');
 
 const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -43,7 +50,7 @@ cancelButton.addEventListener('click', () => {
 const isInputsFocused = () => document.activeElement === hashtagInput || document.activeElement === descriptionInput;
 
 function onDocumentKeydown(evt) {
-  if (isEscapeKey(evt) && !isInputsFocused()) {
+  if (isEscapeKey(evt) && !isInputsFocused() && !(document.querySelector('.error'))) {
     evt.preventDefault();
     closeModal();
   }
@@ -82,15 +89,32 @@ errors.forEach((value, key) =>
   )
 );
 
-imgUploadForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-});
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
+};
 
-const loadPhoto = () => {
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
+
+const setFormSubmitHandler = (cb) => {
+  imgUploadForm.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      await cb(new FormData(imgUploadForm));
+      unblockSubmitButton();
+    }
+  });
+};
+
+const setUploadFormChangeHandler = () => {
   photoUploadButton.addEventListener('change', () => {
     openModal();
   });
 };
 
-export {loadPhoto};
+export {setFormSubmitHandler, setUploadFormChangeHandler, closeModal};
