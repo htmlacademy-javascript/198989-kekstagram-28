@@ -1,4 +1,4 @@
-import {setOnFormSubmit, loadPhoto, closeModal} from './user-form.js';
+import {setFormSubmitHandler, setUploadFormChangeHandler, closeModal} from './user-form.js';
 import {createGallery} from './gallery.js';
 //import {createPhotos} from './data.js';
 import {getData, sendData} from './api.js';
@@ -6,9 +6,9 @@ import {showAlert} from './util.js';
 import {showSuccessMessage, showErrorMessage} from './message.js';
 
 //createGallery(createPhotos());
-loadPhoto();
+setUploadFormChangeHandler();
 
-setOnFormSubmit(async (data) => {
+setFormSubmitHandler(async (data) => {
   try {
     await sendData(data);
     closeModal();

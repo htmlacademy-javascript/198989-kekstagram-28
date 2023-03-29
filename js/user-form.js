@@ -99,7 +99,7 @@ const unblockSubmitButton = () => {
   submitButton.textContent = SubmitButtonText.IDLE;
 };
 
-const setOnFormSubmit = (cb) => {
+const setFormSubmitHandler = (cb) => {
   imgUploadForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
@@ -111,10 +111,10 @@ const setOnFormSubmit = (cb) => {
   });
 };
 
-const loadPhoto = () => {
+const setUploadFormChangeHandler = () => {
   photoUploadButton.addEventListener('change', () => {
     openModal();
   });
 };
 
-export {setOnFormSubmit, loadPhoto, closeModal};
+export {setFormSubmitHandler, setUploadFormChangeHandler, closeModal};

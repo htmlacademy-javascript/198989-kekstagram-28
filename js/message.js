@@ -22,13 +22,13 @@ document.addEventListener('click', (evt) => {
   }
 });
 
-function onDocumentKeydown(evt) {
+/*function onDocumentKeydown(evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     messageSuccess.remove();
     document.removeEventListener('keydown', onDocumentKeydown);
   }
-}
+}*/
 
 const showSuccessMessage = () => {
   document.body.append(messageSuccess);
@@ -38,7 +38,7 @@ const showSuccessMessage = () => {
 
 errorButton.addEventListener('click', () => {
   messageError.remove();
-  document.removeEventListener('keydown', onDocumentKeydownError);
+  document.removeEventListener('keydown', onDocumentKeydown);
 });
 
 document.addEventListener('click', (evt) => {
@@ -47,17 +47,18 @@ document.addEventListener('click', (evt) => {
   }
 });
 
-function onDocumentKeydownError(evt) {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    messageError.remove();
-    document.removeEventListener('keydown', onDocumentKeydownError);
-  }
-}
-
 const showErrorMessage = () => {
   document.body.append(messageError);
-  document.addEventListener('keydown', onDocumentKeydownError);
+  document.addEventListener('keydown', onDocumentKeydown);
 };
+
+function onDocumentKeydown(evt) {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    messageSuccess.remove();
+    messageError.remove();
+    document.removeEventListener('keydown', onDocumentKeydown);
+  }
+}
 
 export {showSuccessMessage, showErrorMessage};
