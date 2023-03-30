@@ -4,6 +4,7 @@ const pictureTemplate = document.querySelector('#picture')
   .querySelector('.picture');
 
 const createPictures = (pictures) => {
+  pictureContainer.querySelectorAll('.picture').forEach((element) => element.remove());
   const pictureContainerFragment = document.createDocumentFragment();
 
   pictures.forEach(({url, description, comments, likes, id}) => {

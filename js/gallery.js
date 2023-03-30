@@ -10,6 +10,7 @@ const photoModalCloseElement = photoModalElement.querySelector('.big-picture__ca
 const commentCount = document.querySelector('.social__comment-count');
 const commentsLoader = document.querySelector('.comments-loader');
 const commentList = document.querySelector('.social__comments');
+const commentInput = photoModalElement.querySelector('.social__footer-text');
 
 let commentsShown = 0;
 let comments = [];
@@ -65,6 +66,7 @@ function closeModal () {
   photoModalElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
+  commentInput.value = '';
 }
 
 photoModalCloseElement.addEventListener('click', () => {
@@ -91,6 +93,7 @@ const createGallery = (pictures) => {
     openModal(picture);
   });
   createPictures(pictures, pictureContainer);
+  document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 };
 
 export {createGallery};
