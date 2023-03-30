@@ -1,11 +1,9 @@
 import {setFormSubmitHandler, setUploadFormChangeHandler, closeModal} from './user-form.js';
 import {createGallery} from './gallery.js';
-//import {createPhotos} from './data.js';
 import {getData, sendData} from './api.js';
-import {showAlert} from './util.js';
+import {showAlert, debounce, getSorteredPhotos, init} from './util.js';
 import {showSuccessMessage, showErrorMessage} from './message.js';
 
-//createGallery(createPhotos());
 setUploadFormChangeHandler();
 
 setFormSubmitHandler(async (data) => {
@@ -20,7 +18,9 @@ setFormSubmitHandler(async (data) => {
 
 try {
   const data = await getData();
-  createGallery(data);
+  const debouncedCreateGallery = debounce(createGallery);
+  init(data, debouncedCreateGallery);
+  createGallery(getSorteredPhotos());
 } catch (err) {
   showAlert(err.message);
 }
