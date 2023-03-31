@@ -22,14 +22,6 @@ document.addEventListener('click', (evt) => {
   }
 });
 
-/*function onDocumentKeydown(evt) {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    messageSuccess.remove();
-    document.removeEventListener('keydown', onDocumentKeydown);
-  }
-}*/
-
 const showSuccessMessage = () => {
   document.body.append(messageSuccess);
   document.addEventListener('keydown', onDocumentKeydown);
