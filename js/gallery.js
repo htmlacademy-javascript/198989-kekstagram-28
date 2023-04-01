@@ -4,11 +4,11 @@ import {isEscapeKey, isEnterKey} from './util.js';
 
 const COMMENTS_COUNT = 5;
 
-const pictureContainer = document.querySelector('.pictures');
+const pictureContainerElement = document.querySelector('.pictures');
 const photoModalElement = document.querySelector('.big-picture');
 const photoModalCloseElement = photoModalElement.querySelector('.big-picture__cancel');
-const commentCount = document.querySelector('.social__comment-count');
-const commentsLoader = document.querySelector('.comments-loader');
+const commentCountElement = document.querySelector('.social__comment-count');
+const commentsLoaderElement = document.querySelector('.comments-loader');
 const commentList = document.querySelector('.social__comments');
 const commentInput = photoModalElement.querySelector('.social__footer-text');
 
@@ -35,10 +35,10 @@ const createComment = ({avatar, message, name}) => {
 const renderComments = () => {
   commentsShown += COMMENTS_COUNT;
   if (commentsShown >= comments.length) {
-    commentsLoader.classList.add('hidden');
+    commentsLoaderElement.classList.add('hidden');
     commentsShown = comments.length;
   } else {
-    commentsLoader.classList.remove('hidden');
+    commentsLoaderElement.classList.remove('hidden');
   }
   const fragment = document.createDocumentFragment();
   for (let i = 0; i < commentsShown; i++) {
@@ -47,7 +47,7 @@ const renderComments = () => {
   }
   commentList.innerHTML = '';
   commentList.append(fragment);
-  commentCount.innerHTML = `${commentsShown} из <span class="comments-count">${comments.length}</span> комментариев`;
+  commentCountElement.innerHTML = `${commentsShown} из <span class="comments-count">${comments.length}</span> комментариев`;
 };
 
 const openModal = (picture) => {
@@ -80,10 +80,10 @@ photoModalCloseElement.addEventListener('keydown', (evt) => {
 });
 
 const onCommentsLoaderClick = () => renderComments();
-commentsLoader.addEventListener('click', onCommentsLoaderClick);
+commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
 
 const createGallery = (pictures) => {
-  pictureContainer.addEventListener('click', (evt) => {
+  pictureContainerElement.addEventListener('click', (evt) => {
     const pictureElement = evt.target.closest('[data-picture-element-id]');
     if (!pictureElement) {
       return;
@@ -92,7 +92,7 @@ const createGallery = (pictures) => {
     const picture = pictures.find((item) => item.id === +pictureElement.dataset.pictureElementId);
     openModal(picture);
   });
-  createPictures(pictures, pictureContainer);
+  createPictures(pictures, pictureContainerElement);
   document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 };
 
