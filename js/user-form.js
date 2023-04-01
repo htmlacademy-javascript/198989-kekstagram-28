@@ -13,15 +13,15 @@ const SubmitButtonText = {
 };
 
 const imgUploadForm = document.querySelector('.img-upload__form');
-const overlay = document.querySelector('.img-upload__overlay');
-const photoUploadButton = document.querySelector('#upload-file');
-const cancelButton = document.querySelector('.img-upload__cancel');
-const hashtagInput = document.querySelector('.text__hashtags');
-const descriptionInput = document.querySelector('.text__description');
-const inputValue = document.querySelector('.scale__control--value');
-const submitButton = imgUploadForm.querySelector('.img-upload__submit');
-const fileChooser = document.querySelector('.img-upload__input');
-const preview = document.querySelector('.img-upload__preview img');
+const overlayElement = document.querySelector('.img-upload__overlay');
+const photoUploadButtonElement = document.querySelector('#upload-file');
+const cancelButtonElement = document.querySelector('.img-upload__cancel');
+const hashtagInputElement = document.querySelector('.text__hashtags');
+const descriptionInputElement = document.querySelector('.text__description');
+const inputValueElement = document.querySelector('.scale__control--value');
+const submitButtonElement = imgUploadForm.querySelector('.img-upload__submit');
+const fileChooserElement = document.querySelector('.img-upload__input');
+const previewElement = document.querySelector('.img-upload__preview img');
 const miniPreviews = document.querySelectorAll('.effects__preview');
 
 const pristine = new Pristine(imgUploadForm, {
@@ -31,9 +31,9 @@ const pristine = new Pristine(imgUploadForm, {
 });
 
 const openModal = () => {
-  overlay.classList.remove('hidden');
+  overlayElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  inputValue.setAttribute('value', '100%');
+  inputValueElement.setAttribute('value', '100%');
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
@@ -42,16 +42,16 @@ const closeModal = () => {
   resetScale();
   resetEffects();
   pristine.reset();
-  overlay.classList.add('hidden');
+  overlayElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
-cancelButton.addEventListener('click', () => {
+cancelButtonElement.addEventListener('click', () => {
   closeModal();
 });
 
-const isInputsFocused = () => document.activeElement === hashtagInput || document.activeElement === descriptionInput;
+const isInputsFocused = () => document.activeElement === hashtagInputElement || document.activeElement === descriptionInputElement;
 
 function onDocumentKeydown(evt) {
   if (isEscapeKey(evt) && !isInputsFocused() && !(document.querySelector('.error'))) {
@@ -87,23 +87,23 @@ errors.set(validateFirstSymbol, 'Хэш-тег должен начинаться
 
 errors.forEach((value, key) =>
   pristine.addValidator(
-    hashtagInput,
+    hashtagInputElement,
     key,
     value
   )
 );
 
 const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = SubmitButtonText.SENDING;
+  submitButtonElement.disabled = true;
+  submitButtonElement.textContent = SubmitButtonText.SENDING;
 };
 
 const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = SubmitButtonText.IDLE;
+  submitButtonElement.disabled = false;
+  submitButtonElement.textContent = SubmitButtonText.IDLE;
 };
 
-const setFormSubmitHandler = (cb) => {
+const onFormSubmit = (cb) => {
   imgUploadForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
@@ -115,16 +115,16 @@ const setFormSubmitHandler = (cb) => {
   });
 };
 
-const setUploadFormChangeHandler = () => {
-  photoUploadButton.addEventListener('change', () => {
-    const file = fileChooser.files[0];
+const onUploadFormChange = () => {
+  photoUploadButtonElement.addEventListener('change', () => {
+    const file = fileChooserElement.files[0];
     const fileName = file.name.toLowerCase();
     const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
     if (matches) {
-      preview.src = URL.createObjectURL(file);
+      previewElement.src = URL.createObjectURL(file);
       for (const miniPreview of miniPreviews) {
-        miniPreview.style.backgroundImage = `url(${preview.src})`;
+        miniPreview.style.backgroundImage = `url(${previewElement.src})`;
       }
       openModal();
     } else {
@@ -133,4 +133,4 @@ const setUploadFormChangeHandler = () => {
   });
 };
 
-export {setFormSubmitHandler, setUploadFormChangeHandler, closeModal};
+export {onFormSubmit, onUploadFormChange, closeModal};

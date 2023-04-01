@@ -50,21 +50,21 @@ const FILTERS = [
 ];
 
 const sliderElement = document.querySelector('.effect-level__slider');
-const sliderContainer = document.querySelector('.img-upload__effect-level');
-const photoPreview = document.querySelector('.img-upload__preview img');
-const effectLevel = document.querySelector('.effect-level__value');
-const effectItem = document.querySelector('.effects');
+const sliderContainerElement = document.querySelector('.img-upload__effect-level');
+const photoPreviewElement = document.querySelector('.img-upload__preview img');
+const effectLevelElement = document.querySelector('.effect-level__value');
+const effectItemElement = document.querySelector('.effects');
 
 let currentFilter = FILTERS[0];
 
 const isDefault = () => currentFilter === FILTERS[0];
 
 const showSlider = () => {
-  sliderContainer.classList.remove('hidden');
+  sliderContainerElement.classList.remove('hidden');
 };
 
 const hideSlider = () => {
-  sliderContainer.classList.add('hidden');
+  sliderContainerElement.classList.add('hidden');
 };
 
 noUiSlider.create(sliderElement, {
@@ -94,12 +94,12 @@ const updateFilter = () => {
   }
 };
 
-effectItem.addEventListener('change', (evt) => {
+effectItemElement.addEventListener('change', (evt) => {
   if (!evt.target.classList.contains('effects__radio')) {
     return;
   }
   currentFilter = FILTERS.find((filter) => filter.name === evt.target.value);
-  photoPreview.className = `effects__preview--${currentFilter.name}`;
+  photoPreviewElement.className = `effects__preview--${currentFilter.name}`;
   updateFilter();
 });
 
@@ -111,10 +111,10 @@ const resetEffects = () => {
 
 const onSliderUpdate = () => {
   const sliderValue = sliderElement.noUiSlider.get();
-  photoPreview.style.filter = isDefault()
+  photoPreviewElement.style.filter = isDefault()
     ? FILTERS[0].style
     : `${currentFilter.style}(${sliderValue}${currentFilter.unit})`;
-  effectLevel.value = sliderValue;
+  effectLevelElement.value = sliderValue;
 };
 
 sliderElement.noUiSlider.on('update', onSliderUpdate);
