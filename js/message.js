@@ -21,7 +21,7 @@ successButtonElement.addEventListener('click', () => {
 });
 
 document.addEventListener('click', (evt) => {
-  if (evt.target.className !== successTextContainerElement && evt.target.className !== successTitleElement) {
+  if (evt.target !== successTextContainerElement && evt.target !== successTitleElement) {
     messageSuccess.remove();
   }
 });
@@ -38,7 +38,7 @@ errorButtonElement.addEventListener('click', () => {
 });
 
 document.addEventListener('click', (evt) => {
-  if (evt.target.className !== errorTextContainerElement && evt.target.className !== errorTitleElement) {
+  if (evt.target !== errorTextContainerElement && evt.target !== errorTitleElement) {
     messageError.remove();
   }
 });
