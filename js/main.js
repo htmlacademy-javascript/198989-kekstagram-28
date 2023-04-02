@@ -1,12 +1,12 @@
-import {onFormSubmit, onUploadFormChange, closeModal} from './user-form.js';
+import {setOnFormSubmit, setOnUploadFormChange, closeModal} from './user-form.js';
 import {createGallery} from './gallery.js';
 import {getData, sendData} from './api.js';
-import {showAlert, debounce, getSorteredPhotos, init} from './util.js';
+import {showAlert, debounce, getSorteredPhotos, initSort} from './util.js';
 import {showSuccessMessage, showErrorMessage} from './message.js';
 
-onUploadFormChange();
+setOnUploadFormChange();
 
-onFormSubmit(async (data) => {
+setOnFormSubmit(async (data) => {
   try {
     await sendData(data);
     closeModal();
@@ -19,7 +19,7 @@ onFormSubmit(async (data) => {
 try {
   const data = await getData();
   const debouncedCreateGallery = debounce(createGallery);
-  init(data, debouncedCreateGallery);
+  initSort(data, debouncedCreateGallery);
   createGallery(getSorteredPhotos());
 } catch (err) {
   showAlert(err.message);

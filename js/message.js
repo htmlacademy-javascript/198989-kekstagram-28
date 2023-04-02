@@ -7,17 +7,21 @@ const errorTemplate = document.querySelector('#error')
   .content
   .querySelector('.error');
 const messageSuccess = successTemplate.cloneNode(true);
-const successButton = messageSuccess.querySelector('.success__button');
+const successButtonElement = messageSuccess.querySelector('.success__button');
 const messageError = errorTemplate.cloneNode(true);
-const errorButton = messageError.querySelector('.error__button');
+const errorButtonElement = messageError.querySelector('.error__button');
+const successTextContainerElement = messageSuccess.querySelector('.success__inner');
+const successTitleElement = messageSuccess.querySelector('.success__title');
+const errorTextContainerElement = messageSuccess.querySelector('.error__inner');
+const errorTitleElement = messageSuccess.querySelector('.error__title');
 
-successButton.addEventListener('click', () => {
+successButtonElement.addEventListener('click', () => {
   messageSuccess.remove();
   document.removeEventListener('keydown', onDocumentKeydown);
 });
 
 document.addEventListener('click', (evt) => {
-  if (evt.target.className !== 'success__inner' && evt.target.className !== 'success__title') {
+  if (evt.target.className !== successTextContainerElement && evt.target.className !== successTitleElement) {
     messageSuccess.remove();
   }
 });
@@ -28,13 +32,13 @@ const showSuccessMessage = () => {
 };
 
 
-errorButton.addEventListener('click', () => {
+errorButtonElement.addEventListener('click', () => {
   messageError.remove();
   document.removeEventListener('keydown', onDocumentKeydown);
 });
 
 document.addEventListener('click', (evt) => {
-  if (evt.target.className !== 'error__inner' && evt.target.className !== 'error__title') {
+  if (evt.target.className !== errorTextContainerElement && evt.target.className !== errorTitleElement) {
     messageError.remove();
   }
 });

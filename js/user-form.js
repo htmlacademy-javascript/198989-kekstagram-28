@@ -103,7 +103,7 @@ const unblockSubmitButton = () => {
   submitButtonElement.textContent = SubmitButtonText.IDLE;
 };
 
-const onFormSubmit = (cb) => {
+const setOnFormSubmit = (cb) => {
   imgUploadForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
@@ -115,11 +115,11 @@ const onFormSubmit = (cb) => {
   });
 };
 
-const onUploadFormChange = () => {
+const setOnUploadFormChange = () => {
   photoUploadButtonElement.addEventListener('change', () => {
     const file = fileChooserElement.files[0];
     const fileName = file.name.toLowerCase();
-    const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+    const matches = FILE_TYPES.some((item) => fileName.endsWith(item));
 
     if (matches) {
       previewElement.src = URL.createObjectURL(file);
@@ -133,4 +133,4 @@ const onUploadFormChange = () => {
   });
 };
 
-export {onFormSubmit, onUploadFormChange, closeModal};
+export {setOnFormSubmit, setOnUploadFormChange, closeModal};
