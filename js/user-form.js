@@ -12,19 +12,19 @@ const SubmitButtonText = {
   SENDING: 'Сохраняю...'
 };
 
-const imgUploadForm = document.querySelector('.img-upload__form');
+const imgUploadFormElement = document.querySelector('.img-upload__form');
 const overlayElement = document.querySelector('.img-upload__overlay');
 const photoUploadButtonElement = document.querySelector('#upload-file');
 const cancelButtonElement = document.querySelector('.img-upload__cancel');
 const hashtagInputElement = document.querySelector('.text__hashtags');
 const descriptionInputElement = document.querySelector('.text__description');
 const inputValueElement = document.querySelector('.scale__control--value');
-const submitButtonElement = imgUploadForm.querySelector('.img-upload__submit');
+const submitButtonElement = imgUploadFormElement.querySelector('.img-upload__submit');
 const fileChooserElement = document.querySelector('.img-upload__input');
 const previewElement = document.querySelector('.img-upload__preview img');
-const miniPreviews = document.querySelectorAll('.effects__preview');
+const miniPreviewsElement = document.querySelectorAll('.effects__preview');
 
-const pristine = new Pristine(imgUploadForm, {
+const pristine = new Pristine(imgUploadFormElement, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__error-text',
@@ -38,7 +38,7 @@ const openModal = () => {
 };
 
 const closeModal = () => {
-  imgUploadForm.reset();
+  imgUploadFormElement.reset();
   resetScale();
   resetEffects();
   pristine.reset();
@@ -51,10 +51,10 @@ cancelButtonElement.addEventListener('click', () => {
   closeModal();
 });
 
-const isInputsFocused = () => document.activeElement === hashtagInputElement || document.activeElement === descriptionInputElement;
+const areInputsFocused = () => document.activeElement === hashtagInputElement || document.activeElement === descriptionInputElement;
 
 function onDocumentKeydown(evt) {
-  if (isEscapeKey(evt) && !isInputsFocused() && !(document.querySelector('.error'))) {
+  if (isEscapeKey(evt) && !areInputsFocused() && !(document.querySelector('.error'))) {
     evt.preventDefault();
     closeModal();
   }
@@ -104,12 +104,12 @@ const unblockSubmitButton = () => {
 };
 
 const setOnFormSubmit = (cb) => {
-  imgUploadForm.addEventListener('submit', async (evt) => {
+  imgUploadFormElement.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
     if (isValid) {
       blockSubmitButton();
-      await cb(new FormData(imgUploadForm));
+      await cb(new FormData(imgUploadFormElement));
       unblockSubmitButton();
     }
   });
@@ -123,8 +123,8 @@ const setOnUploadFormChange = () => {
 
     if (matches) {
       previewElement.src = URL.createObjectURL(file);
-      for (const miniPreview of miniPreviews) {
-        miniPreview.style.backgroundImage = `url(${previewElement.src})`;
+      for (const miniPreviewElement of miniPreviewsElement) {
+        miniPreviewElement.style.backgroundImage = `url(${previewElement.src})`;
       }
       openModal();
     } else {
