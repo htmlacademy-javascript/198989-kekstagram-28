@@ -56,7 +56,7 @@ const sortRandom = () => Math.random() - 0.5;
 
 const sortByComments = (pictureA, pictureB) => pictureB.comments.length - pictureA.comments.length;
 
-const getSorteredPhotos = () => {
+const getSortedPhotos = () => {
   switch (currentSorter) {
     case Sorter.RANDOM:
       return [...pictures].sort(sortRandom).slice(0, RANDOM_PHOTO_COUNT);
@@ -80,7 +80,7 @@ const setOnSorterClick = (cb) => {
     imgFilters.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
     clickedButton.classList.add('img-filters__button--active');
     currentSorter = clickedButton.id;
-    cb(getSorteredPhotos());
+    cb(getSortedPhotos());
   });
 };
 
@@ -89,4 +89,4 @@ const initSort = (data, cb) => {
   setOnSorterClick(cb);
 };
 
-export {isEscapeKey, isEnterKey, showAlert, getSorteredPhotos, initSort, debounce};
+export {isEscapeKey, isEnterKey, showAlert, getSortedPhotos, initSort, debounce};

@@ -9,11 +9,12 @@ const photoModalElement = document.querySelector('.big-picture');
 const photoModalCloseElement = photoModalElement.querySelector('.big-picture__cancel');
 const commentCountElement = document.querySelector('.social__comment-count');
 const commentsLoaderElement = document.querySelector('.comments-loader');
-const commentList = document.querySelector('.social__comments');
-const commentInput = photoModalElement.querySelector('.social__footer-text');
+const commentListElemen = document.querySelector('.social__comments');
+const commentInputElemen = photoModalElement.querySelector('.social__footer-text');
 
 let commentsShown = 0;
 let comments = [];
+let pictures = [];
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -45,8 +46,8 @@ const renderComments = () => {
     const commentElement = createComment(comments[i]);
     fragment.append(commentElement);
   }
-  commentList.innerHTML = '';
-  commentList.append(fragment);
+  commentListElemen.innerHTML = '';
+  commentListElemen.append(fragment);
   commentCountElement.innerHTML = `${commentsShown} из <span class="comments-count">${comments.length}</span> комментариев`;
 };
 
@@ -66,7 +67,7 @@ function closeModal () {
   photoModalElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
-  commentInput.value = '';
+  commentInputElemen.value = '';
 }
 
 photoModalCloseElement.addEventListener('click', () => {
@@ -82,17 +83,20 @@ photoModalCloseElement.addEventListener('keydown', (evt) => {
 const onCommentsLoaderClick = () => renderComments();
 commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
 
-const createGallery = (pictures) => {
-  pictureContainerElement.addEventListener('click', (evt) => {
-    const pictureElement = evt.target.closest('[data-picture-element-id]');
-    if (!pictureElement) {
-      return;
-    }
-    evt.preventDefault();
-    const picture = pictures.find((item) => item.id === +pictureElement.dataset.pictureElementId);
-    openModal(picture);
-  });
+const onPictureClick = (evt) => {
+  const pictureElement = evt.target.closest('[data-picture-element-id]');
+  if (!pictureElement) {
+    return;
+  }
+  evt.preventDefault();
+  const picture = pictures.find((item) => item.id === +pictureElement.dataset.pictureElementId);
+  openModal(picture);
+};
+
+const createGallery = (currentPictures) => {
+  pictures = currentPictures;
   createPictures(pictures, pictureContainerElement);
+  pictureContainerElement.addEventListener('click', onPictureClick);
   document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 };
 
